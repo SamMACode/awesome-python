@@ -3,6 +3,7 @@ import bisect
 import sys
 from array import array
 from random import random
+import numpy
 
 # “Build a list of Unicode codepoints from a string"
 symbols = '$¢£¥€¤'
@@ -101,6 +102,21 @@ fp = open('floats.bin', 'rb')
 floats2.fromfile(fp, 10 ** 7)
 fp.close()
 print(f'floats2 value: {floats2}, whether floats2 == floats: {floats2 == floats}')
+
+# memoryView
+numbers = array('h', [-2, -1, 0, 1, 2])
+memv = memoryview(numbers)
+print(f"len(memv): {len(memv)}, memv[0]: {memv[0]}")
+memv_oct = memv.cast('B')
+print(f"memv_oct value: {memv_oct.tolist()}")
+memv_oct[5] = 4
+print(f"after memv_oct[5] = 4, numbers: {numbers}")
+
+# basic operations with rows and columns in a numpy.ndarray
+array = numpy.arange(12)
+print(f"numpy_array: {array}, type(array): {array}")
+array.shape = 3, 4
+print(f"after shape(3, 4), array: {array}, array[2]: {array[2]}")
 
 # bisect and insort—that use the binary search algorithm to quickly find and insert items
 # in any sorted sequence
