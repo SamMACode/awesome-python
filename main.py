@@ -1,6 +1,8 @@
-# This is a sample Python script.
-import collections
-Card = collections.namedtuple('Card', ['rank', 'suit'])
+# “The collections.namedtuple function is a factory that produces subclasses of tuple enhanced with field names”
+from collections import namedtuple
+
+Card = namedtuple('Card', ['rank', 'suit'])
+City = namedtuple('City', 'name country population coordinates')
 
 
 class FrenchDeck:
@@ -18,6 +20,19 @@ class FrenchDeck:
         return self._cards[position]
 
 
+# Named tuple attributes and methods (continued from the previous example)
+def named_tuple_attributes():
+    print(f"City.fields: {City._fields}")
+    LatLong = namedtuple('LatLong', 'lat long')
+    delhi_data = ('Delhi NCR', 'IN', 21.935, LatLong(28.613889, 77.20889))
+    # "_make() allow you to instantiate a named tuple from an iterable"
+    delhi = City._make(delhi_data)
+    # "can be used to produce a nice display of city data"
+    delhi._asdict()
+    for key, value in delhi._asdict().items():
+        print(key + ':',  value)
+
+
 # Press ⇧⌘F11 to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 def print_hi(name):
@@ -27,7 +42,11 @@ def print_hi(name):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    tokyo = City('Tokyo', 'JP', 36.993, (35.689722, 139.691667))
+    print(f'tokyo instance: {tokyo}')
     print_hi('PyCharm')
+    print(f'tokyo.population: {tokyo.population}, tokyo.coordinates: {tokyo.coordinates}, tokyo[1]: {tokyo[1]}')
+    named_tuple_attributes()
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 # This is a sample Python script.
