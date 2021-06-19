@@ -1,6 +1,8 @@
 import sys
 import re
 import collections
+from types import MappingProxyType
+from unicodedata import name
 
 # Given these ground rules, you can build dictionaries in several ways
 a = dict(one=1, two=2, three=3)
@@ -29,7 +31,7 @@ reverse_dict = {code: country.upper() for country, code in country_code.items()
                 if code < 66}
 print(f"reverse dict: {reverse_dict}")
 
-# Build an index mapping word -> list of occurrences, $ python3.8 dictionaries_and_sets.py main.py
+# Build an index mapping word -> list of occurrences, [$ python3.8 dictionaries_and_sets.py main.py]
 WORD_RE = re.compile('\w+')
 # index = {}, using an instance of defaultdict insted of the setdefault method
 index = collections.defaultdict(list)
@@ -67,3 +69,39 @@ class StrKeyDict0(dict):
 
     def __contains__(self, key):
         return key in self.keys() or str(key) in self.keys()
+
+
+# using MappingProxyType builds a read-only mapping-proxy instance from a dict
+maps = {1: 'A'}
+d_proxy = MappingProxyType(maps)
+print(f"d_proxy value: {d_proxy}, d_proxy[1]: {d_proxy[1]}")
+''' 
+    d_proxy[2] = 'X'
+TypeError: 'mappingproxy' object does not support item assignment
+d_proxy[2] = 'X'
+'''
+maps[2] = 'B'
+print(f"after change maps, d_proxy: {d_proxy}, d_proxy[2]: {d_proxy[2]}")
+lists = ['spam', 'spam', 'eggs', 'spam']
+print(f"set(lists) to remove duplicated items: {set(lists)}, list(set(lists)) value: {list(set(lists))}")
+
+# Build set of characters with codes from 32 to 255 that have the word 'SIGN' in their names
+sign_codes = {chr(i) for i in range(32, 256) if 'SIGN' in name(chr(i), '')}
+print(f"get unicode which's range between 32 and 256, sign_codes: {sign_codes}")
+
+# fills three dictionaries with the same data sorted in different ways
+DIAL_CODES = [(86, 'China'), (91, 'India'),
+              (1, 'United States'), (62, 'Indonesia'),
+              (55, 'Brazil'), (92, 'Pakistan'),
+              (880, 'Bangladesh'), (234, 'Nigeria'),
+              (7, 'Russia'), (81, 'Japan')]
+d1 = dict(DIAL_CODES)
+# d1: dict_keys([86, 91, 1, 62, 55, 92, 880, 234, 7, 81])
+print('d1:', d1.keys())
+d2 = dict(sorted(DIAL_CODES))
+# d2: dict_keys([1, 7, 55, 62, 81, 86, 91, 92, 234, 880])
+print("d2:", d2.keys())
+d3 = dict(sorted(DIAL_CODES, key=lambda x: x[1]))
+# d3: {880: 'Bangladesh', 55: 'Brazil', 86: 'China', 91: 'India', 62: 'Indonesia', 81: 'Japan',
+# 234: 'Nigeria', 92: 'Pakistan', 7: 'Russia', 1: 'United States'}
+print("d3:", d3)
