@@ -1,4 +1,6 @@
 import array
+import os
+import sys, locale
 
 # The str 'café' has four Unicode characters
 string = 'café'
@@ -28,7 +30,7 @@ octets = bytes(numbers)
 # b'\xfe\xff\xff\xff\x00\x00\x01\x00\x02\x00'
 print(f"octets value: {octets}")
 
-# coping with UnicodeEncodeError,
+# coping with UnicodeEncodeError when call city.encode('cp437')
 city = 'São Paulo'
 print(f"utf_8 encode: {city.encode('utf_8')}, utf_16 encode: {city.encode('utf_16')}, "
       f"iso8859_1 value: {city.encode('iso_8859_1')}")
@@ -41,4 +43,28 @@ Traceback (most recent call last):
 UnicodeEncodeError: 'charmap' codec can't encode character '\xe3' in position 1: character maps to <undefined>
 '''
 # city.encode('cp437')
+open('cafe.txt', 'w', encoding='utf_8').write('café')
+print(f"size of cafe.txt is: {os.stat('cafe.txt').st_size}")
+line = open('cafe.txt').read()
+print(f"read some data from cafe.txt, content: {line}")
+os.remove('cafe.txt')
 
+# Several settings affect the encoding defaults for I/O in Python
+expressions = """
+locale.getpreferredencoding()
+        type(my_file)
+        my_file.encoding
+        sys.stdout.isatty()
+        sys.stdout.encoding
+        sys.stdin.isatty()
+        sys.stdin.encoding
+        sys.stderr.isatty()
+        sys.stderr.encoding
+        sys.getdefaultencoding()
+        sys.getfilesystemencoding()
+"""
+my_file = open('dummy', 'w')
+for expression in expressions.split():
+    value = eval(expression)
+    print(expression.rjust(30), '->', repr(value))
+os.remove('dummy')
