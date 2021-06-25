@@ -1,6 +1,7 @@
 import array
 import os
 import sys, locale
+from unicodedata import normalize, name
 
 # The str 'café' has four Unicode characters
 string = 'café'
@@ -68,3 +69,9 @@ for expression in expressions.split():
     value = eval(expression)
     print(expression.rjust(30), '->', repr(value))
 os.remove('dummy')
+
+half = '%'
+print(f"normalize('NFKC', half): {normalize('NFKC', half)}")
+fruits = ['caju', 'atemoia', 'cajá', 'açaí', 'acerola']
+# sorted(fruits): ['acerola', 'atemoia', 'açaí', 'caju', 'cajá']
+print(f"sorted(fruits): {sorted(fruits)}")
