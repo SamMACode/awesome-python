@@ -75,7 +75,7 @@ class StrKeyDict0(dict):
 maps = {1: 'A'}
 d_proxy = MappingProxyType(maps)
 print(f"d_proxy value: {d_proxy}, d_proxy[1]: {d_proxy[1]}")
-''' 
+'''
     d_proxy[2] = 'X'
 TypeError: 'mappingproxy' object does not support item assignment
 d_proxy[2] = 'X'
