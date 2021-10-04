@@ -32,6 +32,14 @@ class Vector2d:
     def __bool__(self):
         return bool(abs(self))
 
+    @property
+    def x(self):
+        return self.x
+
+    @property
+    def y(self):
+        return self.y
+
     @classmethod
     def frombytes(cls, octets):
         typecode = chr(octets[0])

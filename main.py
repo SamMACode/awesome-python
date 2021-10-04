@@ -1,4 +1,5 @@
 # “The collections.namedtuple function is a factory that produces subclasses of tuple enhanced with field names”
+from random import shuffle
 from collections import namedtuple
 
 Card = namedtuple('Card', ['rank', 'suit'])
@@ -40,13 +41,27 @@ def print_hi(name):
     print(f'Hi, {name}')  # Press ⇧⌘B to toggle the breakpoint.
 
 
+def set_card(deck, position, card):
+    deck._cards[position] = card
+
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    """
     tokyo = City('Tokyo', 'JP', 36.993, (35.689722, 139.691667))
     print(f'tokyo instance: {tokyo}')
     print_hi('PyCharm')
     print(f'tokyo.population: {tokyo.population}, tokyo.coordinates: {tokyo.coordinates}, tokyo[1]: {tokyo[1]}')
-    named_tuple_attributes()
+    named_tuple_attributes() 
+    """
+
+    deck = FrenchDeck()
+#         x[i], x[j] = x[j], x[i]
+# TypeError: 'FrenchDeck' object does not support item assignment
+    FrenchDeck.__setitem__ = set_card
+    shuffle(deck)
+    print(f"after shuffle deck[:5]: {deck[:5]}")
+
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 # This is a sample Python script.
