@@ -62,20 +62,3 @@ if __name__ == '__main__':
     shuffle(deck)
     print(f"after shuffle deck[:5]: {deck[:5]}")
 
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
-# This is a sample Python script.
-
-# ~ sublime mac常用快捷键，PyCharm调整为与sublime text一致的了 ~ #
-# Command + T：查询/前往文件
-# Command + R：查询/前往function或method
-# Command + K + B: 隐藏/显示边栏
-# Command + L：选择当前光标整行
-# Command + D：选择当前光标所在的一个词 （继续按会继续选取下一个同样的词）
-# Ctrl + Shift + K: 删除当前行
-# Command + K + U: 转换为大写
-# Command + K + L: 转换为小写
-# Command+ Shift + V: 粘贴并缩进
-# Command + F：查找
-# Command + Shift + F：查找替换
-# Command + /: 注释/非注释Ctrl + M：前往匹配的括号
