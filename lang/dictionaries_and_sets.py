@@ -105,3 +105,8 @@ d3 = dict(sorted(DIAL_CODES, key=lambda x: x[1]))
 # d3: {880: 'Bangladesh', 55: 'Brazil', 86: 'China', 91: 'India', 62: 'Indonesia', 81: 'Japan',
 # 234: 'Nigeria', 92: 'Pakistan', 7: 'Russia', 1: 'United States'}
 print("d3:", d3)
+
+
+if __name__ == '__main__':
+    ##
+    print()
