@@ -118,7 +118,7 @@ def sortedData():
 
 def memoryView():
     # memoryView
-    numbers = array('h', [-2, -1, 0, 1, 2])
+    numbers = list('h', [-2, -1, 0, 1, 2])
     memv = memoryview(numbers)
     print(f"len(memv): {len(memv)}, memv[0]: {memv[0]}")
     memv_oct = memv.cast('B')
@@ -143,6 +143,59 @@ def demo(bisect_fn):
         position = bisect_fn(HAYSTACK, needle)
         offset = position * '  |'
         print(ROW_FORMAT.format(needle, position, offset))
+
+
+def python_control_flow():
+    if id == 0:
+        print('red')
+    elif id == 1:
+        print('yellow')
+    else:
+        print('green')
+    # for循环遍历数据列表、只要列表是可迭代的，就可通过for循环打印
+    l = [1, 2, 3, 4]
+    for item in l:
+        print(item)
+    # 字典中数据的遍历、values()返回字典值的集合，items()返回键、值对的集合
+    dict = {'name': 'jason', 'dob': '2000-01-01', 'gender': 'male'}
+    for key in dict:
+        print(key)
+    print("print all value in dict map:")
+    for value in dict.values():
+        print(value)
+    print("print all (key, value) pair in dict map:")
+    for key, value in dict.items():
+        print("key: {}, value: {}".format(key, value))
+
+    # range()函数可拿到index索引，打印index小于5的元素，当同时需要(索引、元素)时，可通过内置函数enumerate()
+    l = ['one', 'two', 'three', 'four', 'five', 'six', 'seven']
+    for index in range(0, len(l)):
+        if index < 5:
+            print(index)
+
+    for index, item in enumerate(l):
+        if index < 5:
+            print(item)
+
+    # name_price为产品名称->价格的映射，name_color为产品名称->颜色的映射
+    name_price = {'cup': 23.4, 'pencil': 12.2, 'air pods': 23.7, 'magic mouse': 14.5}
+    name_color = {'cup': 'red', 'prncil': 'black', 'air pods': 'white', 'magic mourse': 'while'}
+
+    for name, price in name_price.items():
+        if price >= 20:
+            continue
+        if name not in name_color:
+            print("name: {}, color: {}".format(name, 'None'))
+            continue
+        for color in name_color[name]:
+            if color == 'red':
+                continue
+            print("name: {}, color: {}".format(name, color))
+
+    # 从文件中逐行读取一个完整语句，按逗号分割，并去掉首位的空字符
+    text = ' Today, is, Sunday'
+    text_list = [s.strip() for s in text.split(',') if len(s.strip()) > 3]
+    print(f"split data: {text_list}")
 
 
 if __name__ == '__main__':
