@@ -1,4 +1,6 @@
 # -*- coding:utf-8 -*-
+from functools import reduce
+
 
 MAX_VALUE = 23  # define global variable and use with global syntax
 
@@ -32,7 +34,8 @@ def map_reduce_func():
 	map_list = map(lambda x: x * 2, array)  # [2， 4， 6， 8， 10]
 	filter_elems = filter(lambda x: x % 2 == 0, array)
 	print(f"map function: {map_list}, filter function: {filter_elems}")
-	# reduce_elems = reduce(lambda x,y: x * y, array)  # 1*2*3*4*5 = 120
+	reduce_value = reduce(lambda x, y: x * y, array)  # 1*2*3*4*5 = 120
+	print(f"reduce result: {reduce_value}")
 
 
 if __name__ == '__main__':
@@ -50,3 +53,8 @@ if __name__ == '__main__':
 	# after sort logical, array elements: [(2, -1), (3, 0), (9, 10), (1, 20)]
 	print(f"after sort logical, array elements: {array}")
 	map_reduce_func()
+
+	d = {'mike': 10, 'lucky': 2, 'ben': 30}
+	result = sorted(d.items(), key=lambda x: x[1], reverse=True)
+	# after sorted by value, result is: [('ben', 30), ('mike', 10), ('lucky', 2)]
+	print(f"after sorted by value, result is: {result}")
