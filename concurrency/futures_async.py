@@ -1,4 +1,7 @@
 # -*- coding:utf-8 -*-
+import asyncio
+
+import aiohttp
 import requests
 import time
 import concurrent.futures
@@ -8,9 +11,16 @@ def download_one(url):
 	# requests.get(url)是线程安全的方法，不存在race condition
 	resp = requests.get(url)
 	print('Read {} from {}'.format(len(resp.content), url))
+	# async with aiohttp.ClientSession() as session:
+	# 	async with session.get(url) as resp:
+	# 		print('Read {} from {}'.format(resp.content_length, url))
 
 
 def download_all(url_sites):
+	# solution 3: download data use asyncio.create_task，有些问题en.wikipedia地址无法访问
+	# tasks = [asyncio.create_task(download_one(site)) for site in url_sites]
+	# await asyncio.gather(*tasks)
+
 	with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
 		# solution 2: executor.map()会对sites中的每个url，分别调用download_one函数，max_workers默认用cpu数
 		# executor.map(download_one, url_sites)
