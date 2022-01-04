@@ -67,35 +67,35 @@ reduce_value = reduce(lambda x, y: x * y, array)  # 1*2*3*4*5 = 120
 一般用`asyncio`的`create_task()`来创建任务，并通过`await`等待任务执行完成、或者使用`asyncio.gather(*task)`等待任务执行完成：
 ```python
 async def metrics():
-	"""用time()api来测试python代码执行的效率, asyncio.create_task()异步任务"""
-	start_time = time.time()
-	urls = ['url_1', 'url_2', 'url_3', 'url_4']
-	tasks = [asyncio.create_task(crawl_page(url)) for url in urls]
-	# for task in tasks:
-	# 	await task
-	# 另一种写法，asyncio.gather(*tasks)会等到所有task都跑完
-	await asyncio.gather(*tasks)
-	print(f"total used {round(time.time() - start_time, 2)} s for crawling webpage")
+  """用time()api来测试python代码执行的效率, asyncio.create_task()异步任务"""
+  start_time = time.time()
+  urls = ['url_1', 'url_2', 'url_3', 'url_4']
+  tasks = [asyncio.create_task(crawl_page(url)) for url in urls]
+  # for task in tasks:
+  # 	await task
+  # 另一种写法，asyncio.gather(*tasks)会等到所有task都跑完
+  await asyncio.gather(*tasks)
+  print(f"total used {round(time.time() - start_time, 2)} s for crawling webpage")
 ```
-并行执行`futures`特性，当执行`task`需获取返回结果时，`futures`中的方法`done()`，表示相对应的操作是否完成——`True`表示完成，`False`表示没有完成。
+并行执行`futures`特性，当执行`task`需获取返回结果时，`futures`中的方法`done()`，表示相对应的操作是否完成-`True`表示完成，`False`表示没有完成。
 ```Python
 def download_all(url_sites):
-	with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
-		# solution 2: executor.map()会对sites中的每个url，分别调用download_one函数，max_workers默认用cpu数
-		# executor.map(download_one, url_sites)
-		to_do = []
-		for site in url_sites:
-			future = executor.submit(download_one, site)
-			to_do.append(future)
+  with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+    # solution 2: executor.map()会对sites中的每个url，分别调用download_one函数，max_workers默认用cpu数
+    # executor.map(download_one, url_sites)
+    to_do = []
+    for site in url_sites:
+      future = executor.submit(download_one, site)
+      to_do.append(future)
 
-		for future in concurrent.futures.as_completed(to_do):
-			# executor.submit()后会产生future结果，as_completed()为异步判断是否执行完
-			future.result()
+    for future in concurrent.futures.as_completed(to_do):
+      # executor.submit()后会产生future结果，as_completed()为异步判断是否执行完
+      future.result()
 ```
 `python`中的多进程组件在`multiprocessing`包下，使用方式也较为简单，创建多进程池，通过`pool.map()`执行`task`：
 ```Python
 def find_sums(numbers):
-	# multiprocessing.Pool()会创建进程池，将cpu_bound函数、数据作为key/value进行计算
-	with multiprocessing.Pool() as pool:
-		pool.map(cpu_bound, numbers)
+  # multiprocessing.Pool()会创建进程池，将cpu_bound函数、数据作为key/value进行计算
+  with multiprocessing.Pool() as pool:
+    pool.map(cpu_bound, numbers)
 ···
