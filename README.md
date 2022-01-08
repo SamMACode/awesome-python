@@ -93,9 +93,9 @@ def download_all(url_sites):
       future.result()
 ```
 `python`中的多进程组件在`multiprocessing`包下，使用方式也较为简单，创建多进程池，通过`pool.map()`执行`task`：
-```Python
+```python
 def find_sums(numbers):
   # multiprocessing.Pool()会创建进程池，将cpu_bound函数、数据作为key/value进行计算
   with multiprocessing.Pool() as pool:
     pool.map(cpu_bound, numbers)
-···
+```
