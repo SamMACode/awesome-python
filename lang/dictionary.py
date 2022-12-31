@@ -38,7 +38,7 @@ def reverseDictItems():
 
 
 def indexMappingWord():
-    """Build an index mapping word -> list of occurrences, [$ python3.8 dictionary_and_sets.py main.py]"""
+    """Build an index mapping word -> list of occurrences, [$ python3.8 dictionary.py main.py]"""
     WORD_RE = re.compile('\w+')
     # index = {}, using an instance of default dict instead of the setdefault method
     index = collections.defaultdict(list)
@@ -120,7 +120,7 @@ def sortDictMapEle():
 if __name__ == '__main__':
     map = {'name': 'jason', 'age': 20}
     #     Traceback (most recent call last):
-    #   File "dictionary_and_sets.py", line 122, in <module>
+    #   File "dictionary.py", line 122, in <module>
     #     print(f"map['name']: {map['name']}, element that doesn't exist: ${map['ages']}")
     # KeyError: 'ages'
     # print(f"map['name']: {map['name']}, element that doesn't exist: ${map['ages']}")
